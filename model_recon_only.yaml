@@ -1,0 +1,14 @@
+name: 'recon_only'
+gov_eqs: 'darcy'
+fd_acc: 2
+diff_steps: 100
+x0_estimation: 'mean'
+ddim_steps: 0
+residual_grad_guidance: false
+correction_mode: 'none'
+M_correction: 0
+N_correction: 0
+c_data: 1.0
+c_residual: 0.0
+c_ineq: 0.0
+lambda_opt: 0.0 
