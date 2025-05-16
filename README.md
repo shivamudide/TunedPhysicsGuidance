@@ -66,7 +66,7 @@ trained_models/
 │   └── PIDM-ME/             # physics-informed model (provided)
 ├── darcy_recon_only/     # recon-only model (≈10 MB)
 ├── toy/
-│   ├── physics_model/    # physics-informed toy model
+│   ├── run_1/           # physics-informed toy model
 │   └── recon_only/      # recon-only toy model
 ```
 Unzip the archives so that the contained `model/checkpoint_*.pt` files sit directly inside each directory.
@@ -76,12 +76,17 @@ If you prefer to **train from scratch**, follow the next section.
 ---
 ## 4. Training
 ### 4.1 Toy hypersphere
-Run a single script that trains **both** variants (physics-informed and recon-only):
+Run a script that trains the recon-only model:
 ```bash
 python train_toy_models.py
 ```
-• Checkpoints are written to `trained_models/toy/{physics_model,recon_only}/model/`.  
-• After finishing, a quick diagnostic plot `circular_samples.png` is produced.
+• Checkpoint is written to 'trained_models/toy/recon_only/model/'
+
+Run a script that trains the physics-informed model:
+```bash
+python main.py
+```
+• Checkpoint is written to 'trained_models/toy/run_1/model/'
 
 ### 4.2 Darcy flow
 The physics-informed checkpoint (`trained_models/darcy/PIDM-ME`) is already provided.  
@@ -100,7 +105,7 @@ Checkpoints are saved in `trained_models/recon_only/model/`.
 ---
 ## 5. Guided sampling
 ### 5.1 Toy hypersphere
-Generate 1 000 guided samples with guidance weight ω=1.0:
+Generate 1 000 guided samples with guidance weight ω=0.7:
 ```bash
 python sample_toy_guided.py \
   --physics_model_path ./trained_models/toy/run_1 \
@@ -115,7 +120,7 @@ python sample_toy_guided.py \
 CSV files of the raw samples plus `circular_samples.png` are written to `toy_guided_samples/`.
 
 ### 5.2 Darcy flow
-Produce 8 guided pressure/permeability fields with guidance_scale = 1.3:
+Produce 4 guided pressure/permeability fields with guidance_scale = 1.3:
 ```bash
 python sample_guided.py \
   --physics_model_path ./trained_models/darcy/PIDM-ME \
